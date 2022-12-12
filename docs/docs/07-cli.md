@@ -63,7 +63,7 @@ chain.
 ```
   -h, --help                     help for account
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **SEE ALSO**
@@ -95,7 +95,7 @@ ignite account create [name] [flags]
 
 ```
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **SEE ALSO**
@@ -121,7 +121,7 @@ ignite account delete [name] [flags]
 
 ```
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **SEE ALSO**
@@ -150,7 +150,7 @@ ignite account export [name] [flags]
 
 ```
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **SEE ALSO**
@@ -179,7 +179,7 @@ ignite account import [name] [flags]
 
 ```
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **SEE ALSO**
@@ -206,7 +206,7 @@ ignite account list [flags]
 
 ```
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **SEE ALSO**
@@ -233,7 +233,7 @@ ignite account show [name] [flags]
 
 ```
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **SEE ALSO**
@@ -326,21 +326,21 @@ installs the binary in the $(go env GOPATH)/bin directory.
 
 You can customize the output directory for the binary using a flag:
 
-  ignite chain build --output dist
+	ignite chain build --output dist
 
 To compile the binary Ignite first compiles protocol buffer (proto) files into
 Go source code. Proto files contain required type and services definitions. If
 you're using another program to compile proto files, you can use a flag to tell
 Ignite to skip the proto compilation step:
 
-  ignite chain build --skip-proto
+	ignite chain build --skip-proto
 
 Afterwards, Ignite install dependencies specified in the go.mod file. By default
 Ignite doesn't check that dependencies of the main module stored in the module
 cache have not been modified since they were downloaded. To enforce dependency
 checking (essentially, running "go mod verify") use a flag:
 
-  ignite chain build --check-dependencies
+	ignite chain build --check-dependencies
 
 Next, Ignite identifies the "main" package of the project. By default the "main"
 package is located in "cmd/{app}d" directory, where "{app}" is the name of the
@@ -348,21 +348,21 @@ scaffolded project and "d" stands for daemon. If your your project contains more
 than one "main" package, specify the path to the one that Ignite should compile
 in config.yml:
 
-build:
-  main: custom/path/to/main
+	build:
+		main: custom/path/to/main
 
 By default the binary name will match the top-level module name (specified in
 go.mod) with a suffix "d". This can be customized in config.yml:
 
-build:
-  binary: mychaind
+	build:
+		binary: mychaind
 
 You can also specify custom linker flags:
 
-build:
-  ldflags:
-    - "-X main.Version=development"
-    - "-X main.Date=01/05/2022T19:54"
+	build:
+		ldflags:
+			- "-X main.Version=development"
+			- "-X main.Date=01/05/2022T19:54"
 
 To build binaries for a release, use the --release flag. The binaries for one or
 more specified release targets are built in a "release/" directory in the
@@ -370,7 +370,7 @@ project's source directory. Specify the release targets with GOOS:GOARCH build
 tags. If the optional --release.targets is not specified, a binary is created
 for your current environment.
 
-  ignite chain build --release -t linux:amd64 -t darwin:amd64 -t darwin:arm64
+	ignite chain build --release -t linux:amd64 -t darwin:amd64 -t darwin:arm64
 
 
 ```
@@ -385,7 +385,6 @@ ignite chain build [flags]
   -h, --help                      help for build
   -o, --output string             binary output path
   -p, --path string               path of the app (default ".")
-      --proto-all-modules         enables proto code generation for 3rd party modules used in your chain. Available only without the --release flag
       --release                   build for a release
       --release.prefix string     tarball prefix for each release target. Available only with --release flag
   -t, --release.targets strings   release targets. Available only with --release flag
@@ -449,8 +448,8 @@ By default, the data directory will be initialized in $HOME/.mychain, where
 "mychain" is the name of the project. To set a custom data directory use the
 --home flag or set the value in config.yml:
 
-init:
-  home: "~/.customdir"
+	init:
+		home: "~/.customdir"
 
 The data directory contains three files in the "config" directory: app.toml,
 config.toml, client.toml. These files let you customize the behavior of your
@@ -458,15 +457,15 @@ blockchain node and the client executable. When a chain is re-initialized the
 data directory can be reset. To make some values in these files persistent, set
 them in config.yml:
 
-init:
-  app:
-    minimum-gas-prices: "0.025stake"
-  config:
-    consensus:
-      timeout_commit: "5s"
-      timeout_propose: "5s"
-  client:
-    output: "json"
+	init:
+		app:
+			minimum-gas-prices: "0.025stake"
+		config:
+			consensus:
+				timeout_commit: "5s"
+				timeout_propose: "5s"
+		client:
+			output: "json"
 
 The configuration above changes the minimum gas price of the validator (by
 default the gas price is set to 0 to allow "free" transactions), sets the block
@@ -487,11 +486,11 @@ directory "config" subdirectory and contains the initial state of the chain,
 including consensus and module parameters. You can customize the values of the
 genesis in config.yml:
 
-genesis:
-  app_state:
-    staking:
-      params:
-        bond_denom: "foo"
+	genesis:
+		app_state:
+			staking:
+				params:
+					bond_denom: "foo"
 
 The example above changes the staking token to "foo". If you change the staking
 denom, make sure the validator account has the right tokens.
@@ -550,19 +549,19 @@ exporting and importing the genesis file.
 To force Ignite to start from a clean slate even if a genesis file exists, use
 the following flag:
 
-  ignite chain serve --reset-once
+	ignite chain serve --reset-once
 
 To force Ignite to reset the state every time the source code is modified, use
 the following flag:
 
-  ignite chain serve --force-reset
+	ignite chain serve --force-reset
 
 With Ignite it's possible to start more than one blockchain from the same source
 code using different config files. This is handy if you're building
 inter-blockchain functionality and, for example, want to try sending packets
 from one blockchain to another. To start a node using a specific config file:
 
-  ignite chain serve --config mars.yml
+	ignite chain serve --config mars.yml
 
 The serve command is meant to be used ONLY FOR DEVELOPMENT PURPOSES. Under the
 hood, it runs "appd start", where "appd" is the name of your chain's binary. For
@@ -579,10 +578,10 @@ ignite chain serve [flags]
       --check-dependencies   verify that cached dependencies have not been modified since they were downloaded
       --clear-cache          clear the build cache (advanced)
   -f, --force-reset          Force reset of the app state on start and every source change
+      --generate-clients     Generate code for the configured clients on reset or source code change
   -h, --help                 help for serve
       --home string          home directory used for blockchains
   -p, --path string          path of the app (default ".")
-      --proto-all-modules    enables proto code generation for 3rd party modules used in your chain
       --quit-on-fail         Quit program if the app fails to start
   -r, --reset-once           Reset of the app state on first start
       --skip-proto           skip file generation from proto
@@ -871,14 +870,73 @@ Produced source code can be regenerated by running a command again and is not me
 **SEE ALSO**
 
 * [ignite](#ignite)	 - Ignite CLI offers everything you need to scaffold, test, build, and launch your blockchain
-* [ignite generate openapi](#ignite-generate-openapi)	 - Generate generates an OpenAPI spec for your chain from your config.yml
+* [ignite generate composables](#ignite-generate-composables)	 - Generate Typescript client and Vue 3 composables for your chain's frontend
+* [ignite generate hooks](#ignite-generate-hooks)	 - Generate Typescript client and React hooks for your chain's frontend
+* [ignite generate openapi](#ignite-generate-openapi)	 - Generate an OpenAPI spec for your chain
 * [ignite generate proto-go](#ignite-generate-proto-go)	 - Generate proto based Go code needed for the app's source code
 * [ignite generate ts-client](#ignite-generate-ts-client)	 - Generate Typescript client for your chain's frontend
-* [ignite generate vuex](#ignite-generate-vuex)	 - Generate Typescript client and Vuex stores for your chain's frontend from your `config.yml` file
+* [ignite generate vuex](#ignite-generate-vuex)	 - *DEPRECATED* Generate Typescript client and Vuex stores for your chain's frontend
+
+
+## ignite generate composables
+
+Generate Typescript client and Vue 3 composables for your chain's frontend
+
+```
+ignite generate composables [flags]
+```
+
+**Options**
+
+```
+  -h, --help            help for composables
+  -o, --output string   Vue 3 composables output path
+  -y, --yes             answers interactive yes/no questions with yes
+```
+
+**Options inherited from parent commands**
+
+```
+      --clear-cache   clear the build cache (advanced)
+  -p, --path string   path of the app (default ".")
+```
+
+**SEE ALSO**
+
+* [ignite generate](#ignite-generate)	 - Generate clients, API docs from source code
+
+
+## ignite generate hooks
+
+Generate Typescript client and React hooks for your chain's frontend
+
+```
+ignite generate hooks [flags]
+```
+
+**Options**
+
+```
+  -h, --help            help for hooks
+  -o, --output string   React hooks output path
+  -y, --yes             answers interactive yes/no questions with yes
+```
+
+**Options inherited from parent commands**
+
+```
+      --clear-cache   clear the build cache (advanced)
+  -p, --path string   path of the app (default ".")
+```
+
+**SEE ALSO**
+
+* [ignite generate](#ignite-generate)	 - Generate clients, API docs from source code
+
 
 ## ignite generate openapi
 
-Generate generates an OpenAPI spec for your chain from your config.yml
+Generate an OpenAPI spec for your chain
 
 ```
 ignite generate openapi [flags]
@@ -960,7 +1018,7 @@ ignite generate ts-client [flags]
 
 ## ignite generate vuex
 
-Generate Typescript client and Vuex stores for your chain's frontend from your `config.yml` file
+*DEPRECATED* Generate Typescript client and Vuex stores for your chain's frontend
 
 ```
 ignite generate vuex [flags]
@@ -969,9 +1027,9 @@ ignite generate vuex [flags]
 **Options**
 
 ```
-  -h, --help                help for vuex
-      --proto-all-modules   enables proto code generation for 3rd party modules used in your chain
-  -y, --yes                 answers interactive yes/no questions with yes
+  -h, --help            help for vuex
+  -o, --output string   Vuex store output path
+  -y, --yes             answers interactive yes/no questions with yes
 ```
 
 **Options inherited from parent commands**
@@ -1005,7 +1063,7 @@ for launch.
 To publish the information about your chain as a coordinator run the following
 command (the URL should point to a repository with a Cosmos SDK chain):
 
-  ignite network chain publish github.com/ignite/example
+	ignite network chain publish github.com/ignite/example
 
 This command will return a launch identifier you will be using in the following
 commands. Let's say this identifier is 42.
@@ -1014,26 +1072,26 @@ Next, ask validators to initialize their nodes and request to join the network
 as validators. For a testnet you can use the default values suggested by the
 CLI.
 
-  ignite network chain init 42
+	ignite network chain init 42
 
-  ignite network chain join 42 --amount 95000000stake
+	ignite network chain join 42 --amount 95000000stake
 
 As a coordinator list all validator requests:
 
-  ignite network request list 42
+	ignite network request list 42
 
 Approve validator requests:
 
-  ignite network request approve 42 1,2
+	ignite network request approve 42 1,2
 
 Once you've approved all validators you need in the validator set, announce that
 the chain is ready for launch:
 
-  ignite network chain launch 42
+	ignite network chain launch 42
 
 Validators can now prepare their nodes for launch:
 
-  ignite network chain prepare 42
+	ignite network chain prepare 42
 
 The output of this command will show a command that a validator would use to
 launch their node, for example “exampled --home ~/.example”. After enough
@@ -1101,7 +1159,7 @@ Initialize a chain from a published chain ID
 Ignite network chain init is a command used by validators to initialize a
 validator node for a blockchain from the information stored on the Ignite chain.
 
-  ignite network chain init 42
+	ignite network chain init 42
 
 This command fetches the information about a chain with launch ID 42. The source
 code of the chain is cloned in a temporary directory, and the node's binary is
@@ -1118,7 +1176,7 @@ the values in non-interactive mode.
 Use the "--home" flag to choose a different path for the home directory of the
 blockchain:
 
-  ignite network chain init 42 --home ~/mychain
+	ignite network chain init 42 --home ~/mychain
 
 The end result of the "init" command is a validator home directory with a
 genesis validator transaction (gentx) file.
@@ -1136,7 +1194,7 @@ ignite network chain init [launch-id] [flags]
   -h, --help                                help for init
       --home string                         home directory used for blockchains
       --keyring-backend string              Keyring backend to store your account keys (default "test")
-      --keyring-dir string                  The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string                  The accounts keyring directory (default "/home/runner/.ignite/accounts")
       --validator-account string            Account for the chain validator (default "default")
       --validator-details string            Details about the validator
       --validator-gas-price string          Validator gas price
@@ -1213,7 +1271,7 @@ The following command will send a request to join blockchain with launch ID 42
 as a validator and request to be added as an account with a token balance of
 95000000 STAKE.
 
-  ignite network chain join 42 --amount 95000000stake
+	ignite network chain join 42 --amount 95000000stake
 
 A request to join as a validator contains a gentx file. Ignite looks for gentx
 in a home directory used by "ignite network chain init" by default. To use a
@@ -1238,7 +1296,7 @@ ignite network chain join [launch-id] [flags]
   -h, --help                     help for join
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
       --no-account               Prevent sending a request for a genesis account
       --peer-address string      Peer's address
   -y, --yes                      answers interactive yes/no questions with yes
@@ -1272,7 +1330,7 @@ ignite network chain launch [launch-id] [flags]
       --from string              account name to use for sending transactions to SPN (default "default")
   -h, --help                     help for launch
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
       --launch-time string       Timestamp the chain is effectively launched (example "2022-01-01T00:00:00Z")
 ```
 
@@ -1339,7 +1397,7 @@ ignite network chain prepare [launch-id] [flags]
   -h, --help                     help for prepare
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **Options inherited from parent commands**
@@ -1360,6 +1418,27 @@ ignite network chain prepare [launch-id] [flags]
 
 Publish a new chain to start a new network
 
+**Synopsis**
+
+To begin the process of launching a blockchain with Ignite, a coordinator needs
+to publish the information about a blockchain. The only required bit of
+information is the URL of the source code of the blockchain.
+
+The following command publishes the information about an example blockchain:
+
+  ignite network chain publish github.com/ignite/example
+
+This command fetches the source code of the blockchain, compiles the binary,
+verifies that a blockchain can be started with the binary, and publishes the
+information about the blockchain to Ignite. The command returns an integer number
+that acts as an identifier of the chain on Ignite.
+
+By publishing a blockchain on Ignite you become the "coordinator" of this
+blockchain. A coordinator is an account that has the authority to approve and
+reject validator requests, set parameters of the blockchain and trigger the
+launch of the chain.
+
+
 ```
 ignite network chain publish [source-url] [flags]
 ```
@@ -1375,12 +1454,13 @@ ignite network chain publish [source-url] [flags]
       --check-dependencies       verify that cached dependencies have not been modified since they were downloaded
       --clear-cache              clear the build cache (advanced)
       --from string              account name to use for sending transactions to SPN (default "default")
-      --genesis string           URL to a custom Genesis
+      --genesis-config string    Name of an Ignite config file in the repo for custom Genesis
+      --genesis-url string       URL to a custom Genesis
       --hash string              Git hash to use for the repo
   -h, --help                     help for publish
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
       --mainnet                  Initialize a mainnet campaign
       --metadata string          Add a campaign metadata
       --no-check                 Skip verifying chain's integrity
@@ -1420,7 +1500,7 @@ ignite network chain revert-launch [launch-id] [flags]
       --from string              account name to use for sending transactions to SPN (default "default")
   -h, --help                     help for revert-launch
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **Options inherited from parent commands**
@@ -1662,7 +1742,7 @@ ignite network coordinator set details|identity|website [value] [flags]
   -h, --help                     help for set
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **Options inherited from parent commands**
@@ -1755,7 +1835,7 @@ ignite network request add-account [launch-id] [address] [coins] [flags]
   -h, --help                     help for add-account
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **Options inherited from parent commands**
@@ -1782,7 +1862,7 @@ The "approve" command is used by a chain's coordinator to approve requests.
 Multiple requests can be approved using a comma-separated list and/or using a
 dash syntax.
 
-  ignite network request approve 42 1,2,3-6,7,8
+	ignite network request approve 42 1,2,3-6,7,8
 
 The command above approves requests with IDs from 1 to 8 included on a chain
 with a launch ID 42.
@@ -1809,7 +1889,7 @@ ignite network request approve [launch-id] [number<,...>] [flags]
   -h, --help                     help for approve
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
       --no-verification          approve the requests without verifying them
 ```
 
@@ -1871,7 +1951,7 @@ ignite network request reject [launch-id] [number<,...>] [flags]
   -h, --help                     help for reject
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **Options inherited from parent commands**
@@ -1904,7 +1984,7 @@ ignite network request remove-account [launch-id] [address] [flags]
   -h, --help                     help for remove-account
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **Options inherited from parent commands**
@@ -1937,7 +2017,7 @@ ignite network request remove-validator [launch-id] [address] [flags]
   -h, --help                     help for remove-validator
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **Options inherited from parent commands**
@@ -1998,7 +2078,7 @@ ignite network request verify [launch-id] [number<,...>] [flags]
   -h, --help                     help for verify
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **Options inherited from parent commands**
@@ -2067,7 +2147,7 @@ ignite network validator set details|identity|website|security [value] [flags]
   -h, --help                     help for set
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **Options inherited from parent commands**
@@ -2191,7 +2271,7 @@ ignite node query bank balances [from_account_or_address] [flags]
   -h, --help                     help for balances
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
       --limit uint               pagination limit of all balances to query for (default 100)
       --offset uint              pagination offset of all balances to query for
       --page uint                pagination page of all balances to query for. This sets offset to a multiple of limit (default 1)
@@ -2250,7 +2330,7 @@ Transactions subcommands
   -h, --help                     help for tx
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **Options inherited from parent commands**
@@ -2285,7 +2365,7 @@ Bank transaction subcommands
       --generate-only            Build an unsigned transaction and write it to STDOUT
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
       --node string              <host>:<port> to tendermint rpc interface for this chain (default "https://rpc.cosmos.network:443")
 ```
 
@@ -2319,7 +2399,7 @@ ignite node tx bank send [from_account_or_address] [to_account_or_address] [amou
       --generate-only            Build an unsigned transaction and write it to STDOUT
       --home string              home directory used for blockchains
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
       --node string              <host>:<port> to tendermint rpc interface for this chain (default "https://rpc.cosmos.network:443")
 ```
 
@@ -2434,7 +2514,7 @@ ignite relayer configure [flags]
   -a, --advanced                  Advanced configuration options for custom IBC modules
   -h, --help                      help for configure
       --keyring-backend string    Keyring backend to store your account keys (default "test")
-      --keyring-dir string        The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string        The accounts keyring directory (default "/home/runner/.ignite/accounts")
       --ordered                   Set the channel as ordered
   -r, --reset                     Reset the relayer config
       --source-account string     Source Account
@@ -2475,7 +2555,7 @@ ignite relayer connect [<path>,...] [flags]
 ```
   -h, --help                     help for connect
       --keyring-backend string   Keyring backend to store your account keys (default "test")
-      --keyring-dir string       The accounts keyring directory (default "/home/cozart/.ignite/accounts")
+      --keyring-dir string       The accounts keyring directory (default "/home/runner/.ignite/accounts")
 ```
 
 **SEE ALSO**
@@ -2560,9 +2640,10 @@ with an "--ibc" flag. Note that the default module is not IBC-enabled.
 * [ignite scaffold module](#ignite-scaffold-module)	 - Scaffold a Cosmos SDK module
 * [ignite scaffold packet](#ignite-scaffold-packet)	 - Message for sending an IBC packet
 * [ignite scaffold query](#ignite-scaffold-query)	 - Query to get data from the blockchain
+* [ignite scaffold react](#ignite-scaffold-react)	 - Generate React web app template
 * [ignite scaffold single](#ignite-scaffold-single)	 - CRUD for data stored in a single location
 * [ignite scaffold type](#ignite-scaffold-type)	 - Scaffold only a type definition
-* [ignite scaffold vue](#ignite-scaffold-vue)	 - Vue 3 web app template
+* [ignite scaffold vue](#ignite-scaffold-vue)	 - Generate Vue 3 web app template
 
 
 ## ignite scaffold chain
@@ -2576,15 +2657,15 @@ Create a new application-specific Cosmos SDK blockchain.
 For example, the following command will create a blockchain called "hello" in
 the "hello/" directory:
 
-  ignite scaffold chain hello
+	ignite scaffold chain hello
 
 A project name can be a simple name or a URL. The name will be used as the Go
 module path for the project. Examples of project names:
 
-  ignite scaffold chain foo
-  ignite scaffold chain foo/bar
-  ignite scaffold chain example.org/foo
-  ignite scaffold chain github.com/username/foo
+	ignite scaffold chain foo
+	ignite scaffold chain foo/bar
+	ignite scaffold chain example.org/foo
+	ignite scaffold chain github.com/username/foo
 		
 A new directory with source code files will be created in the current directory.
 To use a different path use the "--path" flag.
@@ -2602,7 +2683,7 @@ example, the Cosmos Hub blockchain uses the default "cosmos" prefix, so that
 addresses look like this: "cosmos12fjzdtqfrrve7zyg9sv8j25azw2ua6tvu07ypf". To
 use a custom address prefix use the "--address-prefix" flag. For example:
 
-  ignite scaffold chain foo --address-prefix bar
+	ignite scaffold chain foo --address-prefix bar
 
 By default when compiling a blockchain's source code Ignite creates a cache to
 speed up the build process. To clear the cache when building a blockchain use
@@ -2663,7 +2744,7 @@ provides the logic to create, read, update, and delete instances of the type.
 For example, let's review a command that generates the code to handle a list of
 posts and each post has "title" and "body" fields:
 
-  ignite scaffold list post title body
+	ignite scaffold list post title body
 
 This provides you with a "Post" type, MsgCreatePost, MsgUpdatePost,
 MsgDeletePost and two queries: Post and PostAll. The compiled CLI, let's say the
@@ -2680,13 +2761,13 @@ different type, you can specify it after a colon ":". The following types are
 supported: string, bool, int, uint, coin, array.string, array.int, array.uint,
 array.coin. An example of using custom types:
 
-  ignite scaffold list pool amount:coin tags:array.string height:int
+	ignite scaffold list pool amount:coin tags:array.string height:int
   
 Ignite also supports custom types:
   
-  ignite scaffold list product-details name description
-  
-  ignite scaffold list product price:coin details:ProductDetails
+	ignite scaffold list product-details name description
+
+	ignite scaffold list product price:coin details:ProductDetails
 
 In the example above the "ProductDetails" type was defined first, and then used
 as a custom type for the "details" field. Ignite doesn't support arrays of
@@ -2696,19 +2777,19 @@ By default the code will be scaffolded in the module that matches your project's
 name. If you have several modules in your project, you might want to specify a
 different module:
 
-  ignite scaffold list post title body --module blog
+	ignite scaffold list post title body --module blog
 
 By default, each message comes with a "creator" field that represents the
 address of the transaction signer. You can customize the name of this field with
 a flag:
 
-  ignite scaffold list post title body --signer author
+	ignite scaffold list post title body --signer author
 
 It's possible to scaffold just the getter/setter logic without the CRUD
 messages. This is useful when you want the methods to handle a type, but would
 like to scaffold messages manually. Use a flag to skip message scaffolding:
 
-  ignite scaffold list post title body --no-message
+	ignite scaffold list post title body --no-message
 
 The "creator" field is not generated if a list is scaffolded with the
 "--no-message" flag.
@@ -2753,26 +2834,26 @@ incrementing integer, whereas "list" values are indexed by a user-provided value
 
 Let's use the same blog post example:
 
-  ignite scaffold map post title body
+	ignite scaffold map post title body
 
 This command scaffolds a "Post" type and CRUD functionality to create, read,
 updated, and delete posts. However, when creating a new post with your chain's
 binary (or by submitting a transaction through the chain's API) you will be
 required to provide an "index":
 
-  blogd tx blog create-post [index] [title] [body]
+	blogd tx blog create-post [index] [title] [body]
 	blogd tx blog create-post hello "My first post" "This is the body"
 
 This command will create a post and store it in the blockchain's state under the
 "hello" index. You will be able to fetch back the value of the post by querying
 for the "hello" key.
 
-  blogd q blog show-post hello
+	blogd q blog show-post hello
 
 To customize the index, use the "--index" flag. Multiple indices can be
 provided, which simplifies querying values. For example:
 
-  ignite scaffold map product price desc --index category,guid
+	ignite scaffold map product price desc --index category,guid
 
 With this command, you would get a "Product" value indexed by both a category
 and a GUID (globally unique ID). This will let you programmatically fetch
@@ -2829,7 +2910,7 @@ recipient's account.
 Ignite's message scaffolding lets you create new types of messages and add them
 to your chain. For example:
 
-  ignite scaffold message add-pool amount:coins denom active:bool --module dex
+	ignite scaffold message add-pool amount:coins denom active:bool --module dex
 
 The command above will create a new message MsgAddPool with three fields: amount
 (in tokens), denom (a string), and active (a boolean). The message will be added
@@ -2847,7 +2928,7 @@ Inside this function, you can implement message handling logic.
 When successfully processed a message can return data. Use the —response flag to
 specify response fields and their types. For example
 
-  ignite scaffold message create-post title body --response id:int,title
+	ignite scaffold message create-post title body --response id:int,title
 
 The command above will scaffold MsgCreatePost which returns both an ID (an
 integer) and a title (a string).
@@ -2919,7 +3000,7 @@ sending tokens between accounts. The method for sending tokens is a defined in
 the "bank"'s module keeper. You can scaffold a "foo" module with the dependency
 on "bank" with the following command:
 
-  ignite scaffold module foo --dep bank
+	ignite scaffold module foo --dep bank
 
 You can then define which methods you want to import from the "bank" keeper in
 "expected_keepers.go".
@@ -2927,7 +3008,7 @@ You can then define which methods you want to import from the "bank" keeper in
 You can also scaffold a module with a list of dependencies that can include both
 standard and custom modules (provided they exist):
 
-  ignite scaffold module bar --dep foo,mint,account
+	ignite scaffold module bar --dep foo,mint,account
 
 Note: the "--dep" flag doesn't install third-party modules into your
 application, it just generates extra code that specifies which existing modules
@@ -2940,7 +3021,7 @@ blockchain is running. An example of a param is "Inflation rate change" of the
 that accepts a list of param names. By default params are of type "string", but
 you can specify a type for each param. For example:
 
-  ignite scaffold module foo --params baz:uint,bar:bool
+	ignite scaffold module foo --params baz:uint,bar:bool
 
 Refer to Cosmos SDK documentation to learn more about modules, dependencies and
 params.
@@ -2954,7 +3035,7 @@ ignite scaffold module [name] [flags]
 
 ```
       --clear-cache            clear the build cache (advanced)
-      --dep strings            module dependencies (e.g. --dep account,bank)
+      --dep strings            module dependencies (e.g. --dep account,bank,FeeGrant)
   -h, --help                   help for module
       --ibc                    scaffold an IBC module
       --ordering string        channel ordering of the IBC module [none|ordered|unordered] (default "none")
@@ -3025,6 +3106,27 @@ ignite scaffold query [name] [request_field1] [request_field2] ... [flags]
 * [ignite scaffold](#ignite-scaffold)	 - Scaffold a new blockchain, module, message, query, and more
 
 
+## ignite scaffold react
+
+Generate React web app template
+
+```
+ignite scaffold react [flags]
+```
+
+**Options**
+
+```
+  -h, --help          help for react
+  -p, --path string   path to scaffold content of the React app (default "./react")
+  -y, --yes           answers interactive yes/no questions with yes
+```
+
+**SEE ALSO**
+
+* [ignite scaffold](#ignite-scaffold)	 - Scaffold a new blockchain, module, message, query, and more
+
+
 ## ignite scaffold single
 
 CRUD for data stored in a single location
@@ -3079,7 +3181,7 @@ ignite scaffold type NAME [field]... [flags]
 
 ## ignite scaffold vue
 
-Vue 3 web app template
+Generate Vue 3 web app template
 
 ```
 ignite scaffold vue [flags]
@@ -3213,3 +3315,4 @@ ignite version [flags]
 **SEE ALSO**
 
 * [ignite](#ignite)	 - Ignite CLI offers everything you need to scaffold, test, build, and launch your blockchain
+
